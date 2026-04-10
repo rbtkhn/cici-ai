@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "description": "Authority map for Cici governed-state writes. Defines who may write what, through which mechanism.",
+  "write_classes": {
+    "canonical": {
+      "description": "Human-controlled governed state writes. Authoritative. Requires explicit owner action — direct edit or approved proposal.",
+      "who": "instance owner (Xavier)",
+      "how": "direct file edit, or proposal approved via proposals/queue/ review",
+      "surfaces": [
+        "users/cici/governed-state/",
+        "config/",
+        "docs/",
+        "proposals/approved/",
+        "proposals/rejected/"
+      ]
+    },
+    "proposal": {
+      "description": "Proposal-only writes by agents or automations. Creates proposal artifacts but does NOT update governed state directly. Requires owner approval before any governed-state surface changes.",
+      "who": "AI agents, automations, Claude Code",
+      "how": "write to proposals/queue/ only",
+      "surfaces": [
+        "proposals/queue/"
+      ]
+    },
+    "operational": {
+      "description": "Operational, cache, index, and sync writes. Support runtime functionality. Not canonical truth — may be reconstructed or overwritten.",
+      "who": "Supabase Edge Functions, MCP server, sync scripts",
+      "how": "direct write to operational layer (Supabase database, function runtime)",
+      "surfaces": [
+        "supabase (external — not in git)",
+        "prepared-context/ (staging area, may be ephemeral)"
+      ]
+    },
+    "ephemeral": {
+      "description": "Ephemeral runtime state. Never committed to git. Excluded by .gitignore.",
+      "who": "any process",
+      "how": "in-memory or gitignored temp files",
+      "surfaces": [
+        "runtime memory",
+        ".env (gitignored)",
+        ".tmp/ (gitignored)"
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "instance_id": "<your-instance-id>",
+  "instance_display_name": "<Display Name>",
+  "owner": "<owner name>",
+  "created_at": "<ISO 8601 timestamp, e.g. 2026-01-01T00:00:00Z>",
+  "purpose": "<describe the purpose of this instance in one or two sentences>",
+  "seed_phase_status": "pending",
+  "capabilities": [],
+  "operational_bridges": [],
+  "governed_state_version": "1.0",
+  "doctrine_version": "1.0",
+  "_instructions": "Replace all <placeholder> values. Remove this _instructions field before committing. Set seed_phase_status to 'active' once initialization is complete."
+}

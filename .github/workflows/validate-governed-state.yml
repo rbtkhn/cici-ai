@@ -1,0 +1,32 @@
+name: Validate Governed State
+
+on:
+  push:
+    paths:
+      - 'proposals/**'
+      - 'users/**'
+      - 'config/**'
+      - 'scripts/validate-governed-state.py'
+  pull_request:
+    paths:
+      - 'proposals/**'
+      - 'users/**'
+      - 'config/**'
+      - 'scripts/validate-governed-state.py'
+
+jobs:
+  validate:
+    name: Validate governed-state artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate governed-state artifacts
+        run: python3 scripts/validate-governed-state.py
