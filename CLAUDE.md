@@ -71,3 +71,21 @@ See [README.md](README.md) for the full architecture diagram.
 ## Setup Reference
 
 See [docs/setup-guide.md](docs/setup-guide.md) for the complete beginner setup walkthrough.
+
+## Governed State (Phase 1)
+
+This repo now has a file-based governed-state layer. Key locations:
+
+| Path | Purpose |
+|---|---|
+| `users/cici/governed-state/` | Canonical durable state for this instance |
+| `proposals/queue/` | Pending proposals — agents write here, owner approves |
+| `proposals/schemas/proposal.schema.json` | Proposal format |
+| `config/authority-map.json` | Who may write what |
+| `docs/governed-state-doctrine.md` | Architectural doctrine |
+| `docs/seed-phase.md` | Instance initialization walkthrough |
+| `scripts/validate-governed-state.py` | Run to validate artifacts |
+
+Supabase remains the primary runtime. The governed-state layer is additive — it does not change how Supabase or MCP work.
+
+When proposing material changes to governed state, create a JSON file in `proposals/queue/` following the schema in `proposals/schemas/proposal.schema.json`. Do NOT write directly to `users/cici/governed-state/` unless the change is small and obvious.

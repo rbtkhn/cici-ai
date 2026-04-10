@@ -1,0 +1,39 @@
+{
+  "instance_id": "cici",
+  "instance_display_name": "Cici",
+  "owner": "Xavier",
+  "purpose": "Xavier's personal AI memory system — a persistent, cross-AI knowledge base for BrewMind strategy, personal thinking, and long-term knowledge accumulation.",
+  "established_at": "2026-04-10T00:00:00Z",
+  "governed_state_version": "1.0",
+  "capabilities": [
+    "mcp-memory-capture",
+    "semantic-search",
+    "fingerprint-deduplication",
+    "multi-ai-gateway"
+  ],
+  "operational_bridges": [
+    {
+      "type": "supabase",
+      "role": "primary-runtime",
+      "status": "active",
+      "note": "Primary runtime for Phase 1. Not canonical — governed-state files take precedence."
+    }
+  ],
+  "related_projects": [
+    {
+      "name": "BrewMind",
+      "repo": "xavier-x01/brew_mind",
+      "relationship": "public-facing brand; insights captured into Cici via MCP"
+    },
+    {
+      "name": "Open Brain (OB1)",
+      "repo": "NateBJones-Projects/OB1",
+      "relationship": "upstream server runtime; Cici deploys from this"
+    },
+    {
+      "name": "open-brain-xavier",
+      "repo": "xavier-x01/open-brain-xavier",
+      "relationship": "personal fork of OB1 for experimental changes"
+    }
+  ]
+}
