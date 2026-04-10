@@ -1,4 +1,12 @@
-# xavier_self — Personal Open Brain Instance
+# xavier_self — Xavier's Personal Open Brain Instance
+
+> **This is Xavier's personal instance layer.** For the fork of the server code see [Xavier-x01/open-brain-xavier](https://github.com/Xavier-x01/open-brain-xavier). Upstream project: [NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1). Business brand: [BrewMind](https://brewmind.cafe).
+
+This repo holds **configuration and documentation only** — no secrets, no server code. All AI memory captured through this instance (including BrewMind business context, notes, and learnings) lives in Xavier's private Supabase project. See [`docs/personal/README.md`](docs/personal/README.md) for goals and workflow notes.
+
+---
+
+# Open Brain — Instance Documentation
 
 A personal instance of [Open Brain (OB1)](https://github.com/NateBJones-Projects/OB1) — a self-owned, persistent AI memory system built on Supabase and exposed via the Model Context Protocol (MCP). Any MCP-compatible AI (Claude, ChatGPT, Cursor, Gemini) can read from and write to this knowledge base.
 

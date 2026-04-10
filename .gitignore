@@ -1,0 +1,23 @@
+# Secrets — never commit these
+.env
+.env.local
+.env.*.local
+supabase/.env.local
+supabase/config.toml.local
+
+# Supabase CLI
+supabase/.branches
+supabase/.temp
+
+# Keys / credentials (belt-and-suspenders catch-all)
+*.key
+*.secret
+*.pem
+secrets.json
+secrets.yaml
+secrets.yml
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/settings.json
