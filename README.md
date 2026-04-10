@@ -1,4 +1,4 @@
-# xavier_self — Xavier's Personal Open Brain Instance
+# Cici — Xavier's Personal Open Brain Instance
 
 > **This is Xavier's personal instance layer.** For the fork of the server code see [Xavier-x01/open-brain-xavier](https://github.com/Xavier-x01/open-brain-xavier). Upstream project: [NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1). Business brand: [BrewMind](https://brewmind.cafe).
 
