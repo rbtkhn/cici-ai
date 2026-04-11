@@ -1,0 +1,100 @@
+{
+  "version": "1.0",
+  "instance_id": "cici",
+  "description": "Readiness criteria for the Cici Seed Phase. A seed is complete when all required criteria are met.",
+  "criteria": [
+    {
+      "id": "seed-001",
+      "name": "seed_intent_filled",
+      "description": "users/cici/seed_intent.json exists, all placeholder values replaced, _instructions field removed.",
+      "required": true,
+      "status": "met",
+      "verified_by": "validate-governed-state.py"
+    },
+    {
+      "id": "seed-002",
+      "name": "instance_id_consistent",
+      "description": "seed_intent.json instance_id matches the directory name ('cici').",
+      "required": true,
+      "status": "met",
+      "verified_by": "validate-governed-state.py"
+    },
+    {
+      "id": "seed-003",
+      "name": "seed_phase_status_active",
+      "description": "seed_intent.json seed_phase_status is 'active' (not 'pending').",
+      "required": true,
+      "status": "met",
+      "verified_by": "validate-governed-state.py"
+    },
+    {
+      "id": "seed-004",
+      "name": "identity_surface_initialized",
+      "description": "users/cici/governed-state/identity/instance.json exists and is valid JSON with required fields.",
+      "required": true,
+      "status": "met",
+      "verified_by": "manual"
+    },
+    {
+      "id": "seed-005",
+      "name": "surface_map_present",
+      "description": "users/cici/governed-state/surface-map.json exists and lists all known surfaces.",
+      "required": true,
+      "status": "met",
+      "verified_by": "manual"
+    },
+    {
+      "id": "seed-006",
+      "name": "validation_passes",
+      "description": "scripts/validate-governed-state.py runs with exit code 0.",
+      "required": true,
+      "status": "met",
+      "verified_by": "ci"
+    },
+    {
+      "id": "seed-007",
+      "name": "committed_to_git",
+      "description": "All seed artifacts committed to the main branch with a 'seed:' commit message.",
+      "required": true,
+      "status": "met",
+      "verified_by": "git-log"
+    },
+    {
+      "id": "seed-008",
+      "name": "runtime_connected",
+      "description": "Supabase runtime is deployed and reachable. MCP server responds to a health check.",
+      "required": true,
+      "status": "met",
+      "verified_by": "manual"
+    },
+    {
+      "id": "seed-009",
+      "name": "at_least_one_mcp_client_connected",
+      "description": "At least one MCP client (Claude Code, Cursor, etc.) is configured and can reach the MCP endpoint.",
+      "required": true,
+      "status": "met",
+      "verified_by": "manual"
+    },
+    {
+      "id": "seed-010",
+      "name": "capture_tested",
+      "description": "At least one MCP capture has been successfully performed and is visible in Supabase.",
+      "required": false,
+      "status": "recommended",
+      "verified_by": "manual",
+      "note": "Strongly recommended before considering the instance production-ready."
+    }
+  ],
+  "confidence_model": {
+    "description": "Confidence in seed readiness is scored 0.0–1.0 based on criteria met.",
+    "formula": "required_met / total_required",
+    "levels": {
+      "0.0–0.49": "not-seeded",
+      "0.50–0.74": "partially-seeded",
+      "0.75–0.99": "mostly-seeded",
+      "1.0": "fully-seeded"
+    },
+    "current_score": 1.0,
+    "current_level": "fully-seeded"
+  }
+}

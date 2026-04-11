@@ -89,17 +89,59 @@ Key properties:
 
 ---
 
+## Governed State Model (Phase 1)
+
+This repo is moving toward a **Git-first governed-state model** where durable truth lives in version-controlled files, not only in hosted services. Supabase remains the primary operational runtime, but governed state is canonical.
+
+Three-layer model:
+
+| Layer | Location | Description |
+|---|---|---|
+| **Evidence** | `evidence/` | Raw imports and unprocessed inputs |
+| **Prepared Context** | `prepared-context/` | Normalized, staged context |
+| **Governed State** | `users/cici/governed-state/` | Approved durable truth |
+
+Material changes to governed state flow through a proposal review queue (`proposals/`). Agents may propose; only the owner approves.
+
+See [`docs/governed-state-doctrine.md`](docs/governed-state-doctrine.md) for the full model.  
+See [`docs/migration-compatibility.md`](docs/migration-compatibility.md) for compatibility guarantees — existing Supabase setup is unchanged.
+
+---
+
 ## Repository Layout
 
 ```
-xavier_self/
-├── README.md              # This file
-├── CLAUDE.md              # Context for Claude Code sessions
-└── docs/
-    └── setup-guide.md     # Complete Supabase setup walkthrough
+Cici/
+├── README.md                       # This file
+├── CLAUDE.md                       # Context for Claude Code sessions
+├── evidence/                       # Raw evidence imports (Phase 1: placeholder)
+├── prepared-context/               # Normalized staged context (Phase 1: placeholder)
+├── users/
+│   ├── _template/                  # Template for new instances
+│   └── cici/                       # Xavier's instance governed state
+│       ├── seed_intent.json
+│       └── governed-state/
+├── proposals/                      # Proposal review queue + schema
+│   ├── schemas/proposal.schema.json
+│   ├── queue/                      # Awaiting review
+│   ├── approved/                   # Approved and applied
+│   └── rejected/                   # Rejected / deferred
+├── config/
+│   └── authority-map.json          # Who may write what, and how
+├── bridges/
+│   └── supabase/                   # Supabase as optional operational bridge
+├── docs/
+│   ├── setup-guide.md              # Complete Supabase setup walkthrough
+│   ├── governed-state-doctrine.md  # Architectural doctrine
+│   ├── seed-phase.md               # Instance initialization walkthrough
+│   ├── migration-compatibility.md  # Phase 1 compatibility notes
+│   ├── brewmind.md                 # BrewMind integration
+│   └── personal/README.md          # Xavier's personal workflow
+└── scripts/
+    └── validate-governed-state.py  # CI validation for governed-state artifacts
 ```
 
-The actual server code lives upstream at [NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1) and is deployed as a Supabase Edge Function — no code lives in this repo beyond configuration and documentation.
+The actual server code lives upstream at [NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1) and is deployed as a Supabase Edge Function.
 
 ---
 
@@ -107,5 +149,6 @@ The actual server code lives upstream at [NateBJones-Projects/OB1](https://githu
 
 - Upstream project: [NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1)
 - Full setup guide: [docs/setup-guide.md](docs/setup-guide.md)
+- Governed state doctrine: [docs/governed-state-doctrine.md](docs/governed-state-doctrine.md)
 - Supabase dashboard: https://supabase.com/dashboard
 - OpenRouter: https://openrouter.ai

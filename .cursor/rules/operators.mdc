@@ -1,0 +1,73 @@
+---
+description: Cici Operator Protocols — step-by-step procedures for common governed-formation operations
+globs: ["proposals/**", "evidence/**", "prepared-context/**", "users/cici/governed-state/**"]
+alwaysApply: false
+---
+
+# Cici Operator Protocols
+
+These are the standard operating procedures for Cici's governed-formation pipeline.
+Full skill docs live in `docs/skills/`.
+
+## Draft a Proposal
+
+When you want to propose a governed-state change:
+
+1. Identify the target surface from `users/cici/governed-state/surface-map.json`
+2. Gather evidence refs (files in `evidence/` or synthesis in `prepared-context/synthesis/`)
+3. Create `proposals/queue/prop-YYYYMMDD-NNN-short-slug.json`
+4. Fill all required fields from `proposals/schemas/proposal.schema.json`
+5. Set `status: "proposed"`, `proposer: "claude-code"` (or your identity)
+6. Run `python3 scripts/validate-governed-state.py` to confirm it passes
+7. Commit: `git commit -m "proposal: add prop-YYYYMMDD-NNN <short description>"`
+
+See `docs/skills/draft-proposal.md` for the full protocol.
+
+## Stage Evidence
+
+When extracting memories from Supabase for review:
+
+1. Export memories from Supabase dashboard or via SQL query
+2. Run `python3 scripts/extract-evidence.py --input <export.json> [--tag <tag>] [--since <date>]`
+3. Review `evidence/` output artifacts
+4. Move high-value items to `prepared-context/synthesis/` for synthesis
+5. Move unsure items to `prepared-context/pending-review/` for later
+
+See `docs/skills/stage-evidence.md` for the full protocol.
+
+## Promote to Governed State
+
+When a proposal is approved and the change should land in governed state:
+
+1. Confirm proposal is `under_review` or `proposed` in `proposals/queue/`
+2. Apply the change to `users/cici/governed-state/<surface>/`
+3. Move proposal JSON to `proposals/approved/`
+4. Update proposal: `status: "approved"`, add `reviewer`, `decided_at`, `decision_notes`
+5. Append event to `proposals/events/event-log.json`
+6. Commit: `git commit -m "governed: apply prop-YYYYMMDD-NNN to <surface>"`
+
+See `docs/skills/promote-to-governed-state.md` for the full protocol.
+
+## Review a Governed Change
+
+When the owner is reviewing a proposal in the queue:
+
+1. Open the proposal in `proposals/queue/`
+2. Check: Does the rationale hold? Is the evidence convincing? Is the surface correct?
+3. If approving: follow Promote protocol above
+4. If rejecting: move to `proposals/rejected/`, set `status: "rejected"`, explain in `decision_notes`
+5. If deferring: move to `proposals/rejected/`, set `status: "deferred"`, note what needs to change
+
+See `docs/skills/review-governed-change.md` for the full protocol.
+
+## Memory Hygiene Audit
+
+Run periodically to find promotion candidates in Supabase:
+
+1. Export recent Supabase memories (last 30–90 days)
+2. Run `python3 scripts/extract-evidence.py --input <export.json>`
+3. Run `python3 scripts/generate-dossier.py` to see pipeline health
+4. Review `evidence/` and move high-signal items to `prepared-context/synthesis/`
+5. Create proposals for patterns ready to be canonicalized
+
+See `docs/skills/memory-hygiene-audit.md` for the full protocol.
