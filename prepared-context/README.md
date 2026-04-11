@@ -1,25 +1,29 @@
 # Prepared Context
 
-This directory holds normalized, deduplicated, and staged context — evidence that has been processed and is ready for review before being approved into governed state.
+This directory is the **staging layer** between raw evidence and approved governed state.
 
-## What belongs here
+Content here is normalized, synthesized, and staged for review. It is **revisable and expiring** — not immutable like evidence, and not durable like governed state.
 
-- Normalized imports (cleaned, deduplicated, fingerprinted)
-- Staged context awaiting owner review or proposal generation
-- Transformation artifacts from evidence → governed-state pipelines
+## Subdirectories
 
-## What does NOT belong here
-
-- Raw unprocessed evidence — that belongs in `evidence/`
-- Approved durable state — that belongs in `users/<instance>/governed-state/`
+| Directory | Purpose | Retention |
+|---|---|---|
+| `synthesis/` | Synthesized summaries ready to become proposals | Until promoted or superseded |
+| `pending-review/` | Staged for owner review before proposal creation | Until owner decides (max ~2 weeks) |
+| `session/` | Session-scoped working context | Single session only — delete after use |
+| `archived/` | Expired or superseded artifacts | Indefinite (low priority) |
 
 ## Lifecycle
 
 ```
-evidence/             ← raw imports
+evidence/             ← raw imports (immutable)
      │
      ▼
-prepared-context/     ← you are here (normalized, staged)
+prepared-context/     ← you are here (revisable, expiring)
+  ├── synthesis/       ← aggregated, ready to propose
+  ├── pending-review/  ← waiting for owner eyes
+  ├── session/         ← ephemeral session notes
+  └── archived/        ← expired (don't delete, archive)
      │
      ▼  (generates proposal)
 proposals/queue/      ← awaiting owner review
@@ -28,8 +32,15 @@ proposals/queue/      ← awaiting owner review
 governed-state/       ← approved durable truth
 ```
 
-## Phase 1 note
+## Time semantics
 
-In Phase 1, this directory is a structural placeholder. Normalization and deduplication currently occur inside the Supabase `upsert_thought()` function at the database layer. Future phases may introduce explicit prepared-context artifacts as an intermediate step.
+| Layer | Mutability | Retention |
+|---|---|---|
+| `evidence/` | Immutable | Long-lived |
+| `prepared-context/` | Revisable | Days to weeks |
+| `governed-state/` | Durable (owner-only changes) | Permanent |
+| Supabase runtime | Mutable, noisy | Operational |
 
-See `docs/governed-state-doctrine.md` for the full model.
+## Full doctrine
+
+See `docs/prepared-context-doctrine.md` for the full doctrine including pipeline, subtypes, and promotion guidance.

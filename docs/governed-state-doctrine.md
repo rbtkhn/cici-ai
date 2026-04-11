@@ -1,7 +1,7 @@
 # Governed State Doctrine
 
-**Version:** 1.0  
-**Phase:** 1 (Foundation)  
+**Version:** 2.0
+**Phase:** 2 (Formation + Review)
 **Status:** Active
 
 ---
@@ -14,15 +14,32 @@ Operational databases, hosted services, and runtime caches are derivative. They 
 
 ---
 
-## Three Layers
+## Four Layers
 
-| Layer | Purpose | Location |
-|---|---|---|
-| **Evidence** | Raw imports, captured thoughts, unprocessed inputs | `evidence/` |
-| **Prepared Context** | Normalized, deduplicated, staged context ready for review | `prepared-context/` |
-| **Governed State** | Approved durable truth | `users/<instance>/governed-state/` |
+| Layer | Purpose | Location | Mutability |
+|---|---|---|---|
+| **Evidence** | Raw imports, captured thoughts, unprocessed inputs | `evidence/` | Immutable once written |
+| **Prepared Context** | Normalized, staged context ready for review | `prepared-context/` | Revisable, expiring |
+| **Governed State** | Approved durable truth, split into surfaces | `users/<instance>/governed-state/<surface>/` | Durable (owner-approved changes only) |
+| **Runtime** | Operational memory: Supabase, MCP, in-session | Supabase (external) | Mutable, noisy, non-canonical |
 
-Evidence and prepared context may be ephemeral or cached. Governed state is durable.
+---
+
+## Governed-State Surfaces
+
+Governed state is split into named domains. Each surface holds a specific category of canonical truth:
+
+| Surface | Contents |
+|---|---|
+| `identity/` | Instance record: id, owner, purpose, capabilities, bridges |
+| `voice/` | Communication style, tone, persona notes |
+| `memory-policy/` | Capture rules, retention thresholds, deduplication |
+| `workflows/` | Recurring operator flows, maintenance rituals |
+| `tools/` | MCP tool configs, AI gateway preferences |
+| `source-priority/` | Source trust levels, conflict resolution rules |
+| `runtime-bridges/` | Supabase bridge policy, sync rules |
+
+The full surface registry is in `users/<instance>/governed-state/surface-map.json`.
 
 ---
 
@@ -33,11 +50,26 @@ Material changes to governed state must go through a proposal.
 1. A proposal artifact is created in `proposals/queue/`
 2. The instance owner reviews it
 3. On approval, the change is applied and the proposal moves to `proposals/approved/`
-4. Rejected proposals move to `proposals/rejected/` with a decision note
+4. The decision is recorded in `proposals/events/event-log.json`
+5. Rejected proposals move to `proposals/rejected/` with a decision note
 
 Agents and automations may create proposals. Only the owner approves them.
 
 Small, obvious corrections do not need formal proposals — direct edits by the owner are valid.
+
+See `docs/change-review-lifecycle.md` for the full lifecycle including conflict resolution and diff policy.
+
+---
+
+## The Promotion Pipeline
+
+Runtime memory can become governed truth through a formal pipeline:
+
+```
+Supabase runtime  →  evidence/  →  prepared-context/synthesis/  →  proposals/queue/  →  governed-state/
+```
+
+See `docs/promotion-doctrine.md` for trigger conditions, extraction scripts, and back-propagation notes.
 
 ---
 
@@ -52,18 +84,19 @@ Supabase is a supported operational bridge. It provides:
 
 **Supabase is not canonical.** If Supabase data diverges from governed state, governed state wins.
 
-During Phase 1, Supabase remains the primary runtime. The governed-state layer is additive — it does not replace or disable Supabase.
+Supabase is the primary runtime. The governed-state layer is additive — it does not replace Supabase.
 
 ---
 
 ## Authority
 
-Four classes of write authority exist in this system:
+Five classes of write authority exist in this system:
 
 | Class | Who | Where |
 |---|---|---|
-| **Canonical** | Instance owner | `users/<instance>/governed-state/`, `config/`, `docs/` |
+| **Canonical** | Instance owner | `users/<instance>/governed-state/<surface>/`, `config/`, `docs/` |
 | **Proposal** | Agents, automations | `proposals/queue/` only |
+| **Staging** | Agents, scripts, operator | `evidence/`, `prepared-context/` |
 | **Operational** | Runtime services (Supabase, MCP) | Supabase database (external) |
 | **Ephemeral** | Any process | In-memory / gitignored temp files |
 
@@ -73,21 +106,30 @@ See `config/authority-map.json` for the full authority model.
 
 ## What This Is Not
 
-- This is not a fully local-first system yet — Phase 1 is the foundation
-- Supabase is not being removed
+- This is not a fully local-first system — Supabase remains the operational runtime
 - Every thought capture does not require a formal proposal
+- Supabase is not being removed
 - This is not bureaucracy — it is legibility
 
 ---
 
-## Phase 1 Scope
+## Phase 1 → Phase 2 Progress
 
-Phase 1 establishes the structural foundation:
-
+**Phase 1** established:
 - File-based governed state scaffold
 - Proposal review queue
 - Authority model
 - Seed Phase initialization pattern
 - Lightweight CI validation
 
-Phase 2 and beyond will expand local-first defaults, improve sync, and may reduce Supabase dependency for core operations.
+**Phase 2** adds:
+- Governed-state surface split (7 named domains)
+- Formal Seed Phase readiness model with artifact tracking
+- Full change-review lifecycle (conflict resolution, event log, diff policy)
+- Prepared-context doctrine with typed subtypes (synthesis, session, pending-review, archived)
+- Runtime-memory → governed-truth promotion pipeline
+- Dossier generation and pipeline health checks
+- Portable operator skills and Cursor rules
+- Template–instance contract and upgrade guidance
+
+Phase 3 and beyond will expand local-first defaults, automate back-propagation, and may reduce Supabase dependency for core operations.

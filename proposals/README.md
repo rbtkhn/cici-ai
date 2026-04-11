@@ -13,6 +13,8 @@ proposed → under_review → approved   → applied to governed-state/
                        └→ superseded → replaced by a newer proposal
 ```
 
+For the full lifecycle — state transitions, conflict resolution, diff generation, and event log format — see `docs/change-review-lifecycle.md`.
+
 ## Directories
 
 | Directory | Contents |
@@ -20,6 +22,7 @@ proposed → under_review → approved   → applied to governed-state/
 | `queue/` | Proposals awaiting review (status: `proposed` or `under_review`) |
 | `approved/` | Approved proposals (status: `approved`) |
 | `rejected/` | Rejected, deferred, or superseded proposals |
+| `events/` | Append-only event log of all decisions |
 | `examples/` | Illustrative example proposals (not real — for reference only) |
 | `schemas/` | JSON schema for proposal files |
 

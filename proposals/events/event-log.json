@@ -1,0 +1,5 @@
+{
+  "description": "Append-only event log for proposal decisions. Each entry records an approval or rejection.",
+  "format_version": "1.0",
+  "events": []
+}

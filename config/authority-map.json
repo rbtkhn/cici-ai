@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "description": "Authority map for Cici governed-state writes. Defines who may write what, through which mechanism.",
   "write_classes": {
     "canonical": {
@@ -7,7 +7,13 @@
       "who": "instance owner (Xavier)",
       "how": "direct file edit, or proposal approved via proposals/queue/ review",
       "surfaces": [
-        "users/cici/governed-state/",
+        "users/cici/governed-state/identity/",
+        "users/cici/governed-state/voice/",
+        "users/cici/governed-state/memory-policy/",
+        "users/cici/governed-state/workflows/",
+        "users/cici/governed-state/tools/",
+        "users/cici/governed-state/source-priority/",
+        "users/cici/governed-state/runtime-bridges/",
         "config/",
         "docs/",
         "proposals/approved/",
@@ -22,13 +28,24 @@
         "proposals/queue/"
       ]
     },
+    "staging": {
+      "description": "Writes to the staging layer (evidence and prepared-context). These are operational but Git-tracked. Not canonical truth — may be revised, archived, or deleted without formal proposals.",
+      "who": "agents, automations, extraction scripts, operator",
+      "how": "direct write to evidence/ or prepared-context/ subdirectories",
+      "surfaces": [
+        "evidence/",
+        "prepared-context/synthesis/",
+        "prepared-context/session/",
+        "prepared-context/pending-review/",
+        "prepared-context/archived/"
+      ]
+    },
     "operational": {
       "description": "Operational, cache, index, and sync writes. Support runtime functionality. Not canonical truth — may be reconstructed or overwritten.",
       "who": "Supabase Edge Functions, MCP server, sync scripts",
       "how": "direct write to operational layer (Supabase database, function runtime)",
       "surfaces": [
-        "supabase (external — not in git)",
-        "prepared-context/ (staging area, may be ephemeral)"
+        "supabase (external — not in git)"
       ]
     },
     "ephemeral": {
@@ -41,5 +58,13 @@
         ".tmp/ (gitignored)"
       ]
     }
-  }
+  },
+  "write_class_hierarchy": [
+    "canonical",
+    "proposal",
+    "staging",
+    "operational",
+    "ephemeral"
+  ],
+  "note": "In any conflict between write classes, the higher class in the hierarchy wins. canonical always beats operational. Governed-state files always win over Supabase data."
 }

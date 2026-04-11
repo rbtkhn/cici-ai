@@ -14,6 +14,10 @@ Checks:
   4. Proposal status matches expected values for its directory
   5. seed_intent.json files under users/ have required fields
   6. seed_intent.json instance_id matches the parent directory name
+  7. governed-state/surface-map.json is present and valid for live instances
+  8. governed-state/identity/instance.json is present for live instances
+  9. proposals/events/event-log.json is valid JSON if present
+ 10. seed-phase/status.json and readiness-criteria.json are valid JSON if present
 """
 
 import json
@@ -25,12 +29,17 @@ ROOT = Path(__file__).parent.parent
 REQUIRED_DIRS = [
     "evidence",
     "prepared-context",
+    "prepared-context/synthesis",
+    "prepared-context/session",
+    "prepared-context/pending-review",
+    "prepared-context/archived",
     "users",
     "users/_template",
     "proposals",
     "proposals/queue",
     "proposals/approved",
     "proposals/rejected",
+    "proposals/events",
     "proposals/schemas",
     "config",
     "bridges/supabase",
@@ -43,6 +52,12 @@ REQUIRED_PROPOSAL_FIELDS = [
     "target_surface", "summary", "rationale", "proposer",
 ]
 REQUIRED_SEED_FIELDS = ["instance_id", "owner", "purpose", "seed_phase_status"]
+REQUIRED_INSTANCE_FIELDS = ["instance_id", "owner", "purpose", "established_at",
+                             "governed_state_version", "capabilities"]
+VALID_SURFACE_IDS = {
+    "identity", "voice", "memory-policy", "workflows",
+    "tools", "source-priority", "runtime-bridges"
+}
 
 PROPOSAL_DIRS = {
     "proposals/queue":    {"proposed", "under_review"},
@@ -111,10 +126,16 @@ def validate_proposal(path, expected_statuses=None):
     if proposal_id and not _valid_proposal_id(proposal_id):
         warn(f"{rel}: id '{proposal_id}' does not match recommended format prop-YYYYMMDD-NNN")
 
+    # Validate target_surface is a known surface (warn, not error — surface list may expand)
+    target_surface = data.get("target_surface", "")
+    if target_surface and target_surface not in VALID_SURFACE_IDS:
+        warn(f"{rel}: target_surface '{target_surface}' is not a known surface — "
+             f"known: {sorted(VALID_SURFACE_IDS)}")
+
 
 def _valid_proposal_id(proposal_id):
     import re
-    return bool(re.match(r'^prop-\d{8}-\d{3,}$', proposal_id))
+    return bool(re.match(r'^prop-\d{8}-\d{3,}', proposal_id))
 
 
 def validate_proposals():
@@ -141,6 +162,13 @@ def validate_seed_intents():
             if field not in data:
                 err(f"{rel}: missing required field '{field}'")
 
+        # Check no placeholder values remain
+        for key, value in data.items():
+            if key == "_instructions":
+                err(f"{rel}: '_instructions' field must be removed before committing")
+            if isinstance(value, str) and value.startswith("<") and value.endswith(">"):
+                err(f"{rel}: field '{key}' still contains placeholder value '{value}'")
+
         instance_id = data.get("instance_id", "")
         dir_name = path.parent.name
         if instance_id and instance_id != dir_name:
@@ -151,10 +179,136 @@ def validate_seed_intents():
             warn(f"{rel}: unexpected seed_phase_status '{status}'")
 
 
+def validate_instance_governed_state():
+    """Validate structure of live instance governed-state directories."""
+    for instance_dir in sorted(ROOT.glob("users/*")):
+        if not instance_dir.is_dir():
+            continue
+        if instance_dir.name == "_template":
+            continue
+
+        instance_id = instance_dir.name
+        gs_dir = instance_dir / "governed-state"
+
+        if not gs_dir.is_dir():
+            err(f"users/{instance_id}/: missing governed-state/ directory")
+            continue
+
+        # Check surface-map.json
+        surface_map_path = gs_dir / "surface-map.json"
+        if not surface_map_path.exists():
+            warn(f"users/{instance_id}/governed-state/: surface-map.json missing — "
+                 f"add to enable surface validation")
+        else:
+            surface_map = load_json(surface_map_path)
+            if surface_map:
+                # Check for placeholder values
+                map_instance_id = surface_map.get("instance_id", "")
+                if map_instance_id.startswith("<") and map_instance_id.endswith(">"):
+                    err(f"users/{instance_id}/governed-state/surface-map.json: "
+                        f"instance_id still contains placeholder '{map_instance_id}'")
+                elif map_instance_id and map_instance_id != instance_id:
+                    err(f"users/{instance_id}/governed-state/surface-map.json: "
+                        f"instance_id '{map_instance_id}' does not match directory '{instance_id}'")
+
+                # Check _instructions not present
+                if "_instructions" in surface_map:
+                    err(f"users/{instance_id}/governed-state/surface-map.json: "
+                        f"'_instructions' field must be removed before committing")
+
+        # Check identity surface exists
+        identity_dir = gs_dir / "identity"
+        if not identity_dir.is_dir():
+            warn(f"users/{instance_id}/governed-state/: identity/ surface directory missing")
+        else:
+            instance_json_path = identity_dir / "instance.json"
+            if not instance_json_path.exists():
+                warn(f"users/{instance_id}/governed-state/identity/: instance.json missing — "
+                     f"create during Seed Phase initialization")
+            else:
+                data = load_json(instance_json_path)
+                if data:
+                    rel = str(instance_json_path.relative_to(ROOT))
+                    for field in REQUIRED_INSTANCE_FIELDS:
+                        if field not in data:
+                            err(f"{rel}: missing required field '{field}'")
+                    iid = data.get("instance_id", "")
+                    if iid and iid != instance_id:
+                        err(f"{rel}: instance_id '{iid}' does not match directory '{instance_id}'")
+
+
+def validate_event_log():
+    """Validate event log JSON structure if present."""
+    event_log_path = ROOT / "proposals" / "events" / "event-log.json"
+    if not event_log_path.exists():
+        warn("proposals/events/event-log.json missing — create with empty events array")
+        return
+
+    data = load_json(event_log_path)
+    if data is None:
+        return
+
+    rel = str(event_log_path.relative_to(ROOT))
+    if "events" not in data:
+        err(f"{rel}: missing required 'events' array")
+        return
+
+    if not isinstance(data["events"], list):
+        err(f"{rel}: 'events' must be an array")
+        return
+
+    for i, event in enumerate(data["events"]):
+        for field in ["event_id", "timestamp", "proposal_id", "action"]:
+            if field not in event:
+                warn(f"{rel}: event[{i}] missing field '{field}'")
+
+
+def validate_seed_phase_artifacts():
+    """Validate seed-phase/ artifacts for live instances if present."""
+    for instance_dir in sorted(ROOT.glob("users/*")):
+        if not instance_dir.is_dir() or instance_dir.name == "_template":
+            continue
+
+        instance_id = instance_dir.name
+        seed_phase_dir = instance_dir / "seed-phase"
+
+        if not seed_phase_dir.is_dir():
+            # Not required — just a warning for live instances
+            warn(f"users/{instance_id}/: seed-phase/ directory missing — "
+                 f"consider adding for readiness tracking")
+            continue
+
+        # Validate status.json if present
+        status_path = seed_phase_dir / "status.json"
+        if status_path.exists():
+            data = load_json(status_path)
+            if data:
+                rel = str(status_path.relative_to(ROOT))
+                if "_instructions" in data:
+                    err(f"{rel}: '_instructions' field must be removed before committing")
+                iid = data.get("instance_id", "")
+                if iid.startswith("<"):
+                    err(f"{rel}: instance_id still contains placeholder '{iid}'")
+                elif iid and iid != instance_id:
+                    err(f"{rel}: instance_id '{iid}' does not match directory '{instance_id}'")
+
+        # Validate readiness-criteria.json if present
+        criteria_path = seed_phase_dir / "readiness-criteria.json"
+        if criteria_path.exists():
+            data = load_json(criteria_path)
+            if data:
+                rel = str(criteria_path.relative_to(ROOT))
+                if "_instructions" in data:
+                    err(f"{rel}: '_instructions' field must be removed before committing")
+
+
 def main():
     check_required_dirs()
     validate_proposals()
     validate_seed_intents()
+    validate_instance_governed_state()
+    validate_event_log()
+    validate_seed_phase_artifacts()
 
     if warnings:
         print("Warnings:")

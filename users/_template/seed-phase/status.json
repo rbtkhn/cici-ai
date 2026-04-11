@@ -1,0 +1,27 @@
+{
+  "instance_id": "<your-instance-id>",
+  "_instructions": "Replace <your-instance-id>. Update seed_phase_status and completed_steps as you progress. Remove _instructions before committing.",
+  "seed_phase_status": "pending",
+  "completed_at": null,
+  "readiness_level": "not-seeded",
+  "readiness_score": 0.0,
+  "completed_steps": [
+    { "step": "template-copied", "completed": false, "note": "" },
+    { "step": "seed-intent-filled", "completed": false, "note": "" },
+    { "step": "governed-state-initialized", "completed": false, "note": "" },
+    { "step": "surface-map-created", "completed": false, "note": "" },
+    { "step": "validation-passed", "completed": false, "note": "" },
+    { "step": "committed", "completed": false, "note": "" },
+    { "step": "runtime-connected", "completed": false, "note": "" }
+  ],
+  "open_stubs": [
+    "identity",
+    "voice",
+    "memory-policy",
+    "workflows",
+    "tools",
+    "source-priority",
+    "runtime-bridges"
+  ],
+  "notes": "Template not yet initialized."
+}
