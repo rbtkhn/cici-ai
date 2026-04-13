@@ -89,3 +89,8 @@ This repo now has a file-based governed-state layer. Key locations:
 Supabase remains the primary runtime. The governed-state layer is additive — it does not change how Supabase or MCP work.
 
 When proposing material changes to governed state, create a JSON file in `proposals/queue/` following the schema in `proposals/schemas/proposal.schema.json`. Do NOT write directly to `users/cici/governed-state/` unless the change is small and obvious.
+
+## Session Behavior
+
+- **Git / fork context:** Assume Xavier may be learning git workflows. Before any git advice, restate the current branch and remote in one line (e.g. "You're on `main`, tracking `origin/main`"). Link to `docs/personal/intentions-and-preferences.md` for fuller context on collaboration style.
+- **Disagreement:** Raise at most one concise challenge per decision point, then implement Xavier's chosen direction unless the action is blocked by a policy constraint or would expose secrets.
