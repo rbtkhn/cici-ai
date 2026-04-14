@@ -21,3 +21,6 @@ secrets.yml
 .DS_Store
 Thumbs.db
 .vscode/settings.json
+
+# Personal Claude preferences (not shared)
+CLAUDE.local.md

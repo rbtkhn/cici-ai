@@ -94,6 +94,38 @@ When proposing material changes to governed state, create a JSON file in `propos
 
 - **Git / fork context:** Assume Xavier may be learning git workflows. Before any git advice, restate the current branch and remote in one line (e.g. "You're on `main`, tracking `origin/main`"). Link to `docs/personal/intentions-and-preferences.md` for fuller context on collaboration style.
 - **Disagreement:** Raise at most one concise challenge per decision point, then implement Xavier's chosen direction unless the action is blocked by a policy constraint or would expose secrets.
+- **Plan-mode-first:** Begin complex or ambiguous tasks in Plan mode (shift+tab twice in the CLI, or state the plan before acting). Switch to edits only once the approach is confirmed. This enforces the PLAN lane default.
+
+## Available Slash Commands
+
+These commands live in `.claude/commands/` and can be invoked with `/`:
+
+| Command | Purpose |
+|---|---|
+| `/session-start` | Run the startup ceremony: reads open proposals, open loops, surfaces status paragraph |
+| `/draft-proposal <surface>` | Scaffold a new proposal for a governed-state surface |
+| `/review-governed-change <proposal-id>` | Evaluate a queued proposal and wait for Xavier's decision |
+| `/promote-to-governed-state <proposal-id>` | Apply an approved proposal to the correct surface |
+| `/stage-evidence [tag]` | Stage Supabase export into evidence/ and prepared-context/ |
+| `/memory-audit` | Run a full pipeline and Tier C leak audit |
+
+## Available Agents
+
+These agents live in `.claude/agents/` and can be invoked via the Agent tool:
+
+| Agent | Tools | Purpose |
+|---|---|---|
+| `proposal-reviewer` | Read-only | Evaluates queued proposals; flags issues |
+| `evidence-stager` | Read + Write (evidence/ + prepared-context/ only) | Stages and synthesizes evidence |
+| `memory-auditor` | Read-only | Monthly hygiene audit; finds Tier C leaks |
+
+## Common Errors (Do Not Repeat)
+
+_This section is a living log. Add entries when Claude makes a mistake Xavier should not see again._
+
+- **Do not cite Supabase recall as fact.** MCP search results and `recent_thoughts` are Tier C. Always annotate and offer a verification step.
+- **Do not write to governed-state surfaces without a proposal.** Even obvious improvements need the proposal → approval flow unless Xavier explicitly says "direct edit is fine."
+- **Do not generate pricing, partner commitment, or launch date language** without an explicit Tier A or B source and Xavier's go-ahead.
 
 ## BrewMind companion defaults
 

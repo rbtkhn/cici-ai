@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(python3 scripts/validate-governed-state.py)",
+      "Bash(python3 scripts/generate-dossier.py:*)",
+      "Bash(python3 scripts/extract-evidence.py:*)"
+    ],
+    "defaultMode": "plan"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "bash .claude/hooks/session-start.sh"
+      }
+    ]
+  }
+}
