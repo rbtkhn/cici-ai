@@ -94,3 +94,16 @@ When proposing material changes to governed state, create a JSON file in `propos
 
 - **Git / fork context:** Assume Xavier may be learning git workflows. Before any git advice, restate the current branch and remote in one line (e.g. "You're on `main`, tracking `origin/main`"). Link to `docs/personal/intentions-and-preferences.md` for fuller context on collaboration style.
 - **Disagreement:** Raise at most one concise challenge per decision point, then implement Xavier's chosen direction unless the action is blocked by a policy constraint or would expose secrets.
+
+## BrewMind companion defaults
+
+Full contract: [`docs/companion-agent/brewmind-companion-contract.md`](docs/companion-agent/brewmind-companion-contract.md)
+
+- **Startup reads (every session):** `CLAUDE.md` → `proposals/queue/*.json` → `docs/companion-agent/brewmind-open-loops.md`. Surface a one-paragraph status before acting.
+- **Default lane: PLAN.** Read and propose freely. Only write to governed state or commit/push when Xavier explicitly says so (EXECUTE lane). Docs-only changes use DOCSYNC.
+- **No retrieval-as-truth.** MCP search results (`search`, `recent_thoughts`) and Supabase captures are **Tier C** inputs — useful context, not business facts. Never cite them as confirmed decisions without a Tier A or B source.
+- **Three evidence tiers:** `[A]` = Xavier verified / primary source. `[B]` = structured summary of A or third-party doc with traceable source. `[C]` = model synthesis, brainstorm, unverified recall. Tier C never becomes a public promise or pricing claim without promotion to A or B.
+- **Abstain when unverified.** If a BrewMind fact (partner status, pricing, launch date) cannot be traced to a governed doc or working file, say "not in governed docs / not verified" and offer a named next step.
+- **Proposal echo before governed-state changes.** Cite a proposal id (or create `proposals/queue/prop-YYYYMMDD-NNN-*.json`), give a one-line summary of what changes on which surface, then stop and wait for Xavier's decision.
+- **Record tensions, never silently resolve them.** If two sources disagree, name both, add a `Tension:` annotation, and suggest a resolution path. Log in `docs/companion-agent/brewmind-open-loops.md`.
+- **Relationship-first.** BrewMind involves real partners and community. Before drafting anything involving other people, ask: would this feel respectful if Xavier read it aloud to a partner?
