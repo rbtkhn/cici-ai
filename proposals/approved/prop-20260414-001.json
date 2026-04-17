@@ -1,0 +1,19 @@
+{
+  "id": "prop-20260414-001",
+  "created_at": "2026-04-14T00:00:00Z",
+  "status": "approved",
+  "change_type": "add",
+  "target_surface": "users/cici/governed-state/workflows/",
+  "summary": "Adopt BrewMind companion contract as governed reference for operator sessions working on BrewMind inside the Cici instance.",
+  "rationale": "Claude Code sessions assisting Xavier with BrewMind currently have no durable behavioral contract. Without one, each session must re-derive rules for abstention, evidence tiers, and operator lanes — and risks treating Supabase retrieval or model recall as business fact. The companion contract (docs/companion-agent/brewmind-companion-contract.md) defines eight behavioral sections: calibrated abstention, three memory tiers, trust tiers for evidence, approval ceremony, operator lanes, humane purpose, tension recording, and session continuity. Promoting a reference to the workflows governed-state surface makes this durable across all future sessions. Target surface: 'workflows' — because the contract defines recurring operator flows (session startup reads, lane selection, proposal echo ceremony) and is a natural fit for that surface's stated purpose: 'Recurring operator flows, maintenance rituals.'",
+  "evidence_refs": [
+    "docs/companion-agent/brewmind-companion-contract.md",
+    "CLAUDE.md#brewmind-companion-defaults"
+  ],
+  "proposed_diff_summary": "Create users/cici/governed-state/workflows/brewmind-companion-contract-ref.json: a lightweight governance pointer that names docs/companion-agent/brewmind-companion-contract.md as the canonical behavioral reference for BrewMind operator sessions, records its version, and lists the eight behavioral sections as an index. No changes to other governed surfaces. Update surface-map.json to mark 'workflows' status as 'active' once the first artifact is approved.",
+  "confidence": 0.85,
+  "proposer": "claude-code",
+  "reviewer": "Xavier",
+  "decided_at": "2026-04-17T00:00:00Z",
+  "decision_notes": "Created users/cici/governed-state/workflows/brewmind-companion-contract-ref.json with 8-section index. Updated surface-map.json workflows status from stub to active."
+}

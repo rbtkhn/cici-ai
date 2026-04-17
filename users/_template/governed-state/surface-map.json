@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "description": "Governed-state surface map for this instance. Copy this file to users/<instance-id>/governed-state/surface-map.json and update instance_id.",
+  "instance_id": "<your-instance-id>",
+  "_instructions": "Replace <your-instance-id>. Remove this _instructions field before committing.",
+  "surfaces": [
+    {
+      "id": "identity",
+      "path": "users/<your-instance-id>/governed-state/identity/",
+      "description": "Who this instance is: instance record, owner, purpose, capabilities, operational bridges.",
+      "status": "stub"
+    },
+    {
+      "id": "voice",
+      "path": "users/<your-instance-id>/governed-state/voice/",
+      "description": "Communication style, tone preferences, persona notes.",
+      "status": "stub"
+    },
+    {
+      "id": "memory-policy",
+      "path": "users/<your-instance-id>/governed-state/memory-policy/",
+      "description": "What to capture, what to retain, deduplication rules, archiving thresholds.",
+      "status": "stub"
+    },
+    {
+      "id": "workflows",
+      "path": "users/<your-instance-id>/governed-state/workflows/",
+      "description": "Recurring operator flows: review cadence, capture habits, promotion triggers.",
+      "status": "stub"
+    },
+    {
+      "id": "tools",
+      "path": "users/<your-instance-id>/governed-state/tools/",
+      "description": "Tool configurations, MCP client settings, AI gateway preferences.",
+      "status": "stub"
+    },
+    {
+      "id": "source-priority",
+      "path": "users/<your-instance-id>/governed-state/source-priority/",
+      "description": "How to weight and trust different information sources.",
+      "status": "stub"
+    },
+    {
+      "id": "runtime-bridges",
+      "path": "users/<your-instance-id>/governed-state/runtime-bridges/",
+      "description": "Bridge rules for Supabase and any other runtime connections.",
+      "status": "stub"
+    }
+  ],
+  "surface_status_values": {
+    "active": "Surface has canonical governed-state artifacts. Changes require proposals.",
+    "stub": "Surface directory exists. No governed artifacts yet. Populated through approved proposals.",
+    "deprecated": "Surface is no longer used. Retained for historical reference."
+  }
+}

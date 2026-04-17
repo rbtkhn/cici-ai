@@ -1,0 +1,19 @@
+{
+  "id": "prop-20260413-001",
+  "created_at": "2026-04-13T00:00:00Z",
+  "status": "approved",
+  "change_type": "add",
+  "target_surface": "users/cici/governed-state/voice/",
+  "summary": "Add initial voice governed state encoding two high-signal session behaviors from Xavier's stated collaboration preferences.",
+  "rationale": "Two behavioral patterns have been consistently observed in session context and explicitly stated by Xavier: (1) never assume git/fork fluency — always surface branch/remote context before git advice; (2) flag disagreement at most once per decision point, then follow owner direction unless blocked by policy or secrets. These are low-controversy, high-leverage rules that reduce session re-derivation cost. Promoting them to governed state makes them durable across all Claude sessions.",
+  "evidence_refs": [
+    "docs/personal/intentions-and-preferences.md (planned — not yet committed)",
+    "CLAUDE.md#session-behavior (encoded 2026-04-13 as machine-readable reference)"
+  ],
+  "proposed_diff_summary": "Create users/cici/governed-state/voice/session-behavior.json with two entries: (a) git_context_always_restate: true, (b) disagreement_limit_per_decision: 1. Mark voice surface status as 'active' in surface-map.json once approved.",
+  "confidence": 0.88,
+  "proposer": "claude-code",
+  "reviewer": "Xavier",
+  "decided_at": "2026-04-17T00:00:00Z",
+  "decision_notes": "Created users/cici/governed-state/voice/session-behavior.json with two rules. Updated surface-map.json voice status from stub to active."
+}

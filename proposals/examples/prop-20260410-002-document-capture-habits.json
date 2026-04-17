@@ -1,0 +1,19 @@
+{
+  "id": "prop-20260410-002",
+  "created_at": "2026-04-10T00:00:00Z",
+  "status": "under_review",
+  "change_type": "add",
+  "target_surface": "users/cici/governed-state/capture-habits.md",
+  "summary": "Document Xavier's intended capture habits and guidelines as governed state to make memory use consistent and auditable.",
+  "rationale": "Cici's value compounds over time only if capture habits are consistent. Encoding the 'what and when to capture' rules as governed state makes them explicit, improvable, and visible to AI agents that assist with capture.",
+  "evidence_refs": [
+    "docs/personal/README.md",
+    "docs/brewmind.md"
+  ],
+  "proposed_diff_summary": "Create users/cici/governed-state/capture-habits.md describing: types of content worth capturing (strategic decisions, research insights, content ideas), preferred metadata tagging conventions, and rough frequency targets (e.g. at least 3 captures per work session).",
+  "confidence": 0.90,
+  "proposer": "claude-code",
+  "reviewer": null,
+  "decided_at": null,
+  "decision_notes": null
+}

@@ -1,0 +1,53 @@
+{
+  "instance_id": "cici",
+  "seed_phase_status": "complete",
+  "completed_at": "2026-04-10T00:00:00Z",
+  "readiness_level": "fully-seeded",
+  "readiness_score": 1.0,
+  "completed_steps": [
+    {
+      "step": "template-copied",
+      "completed": true,
+      "note": "users/_template copied to users/cici/"
+    },
+    {
+      "step": "seed-intent-filled",
+      "completed": true,
+      "note": "users/cici/seed_intent.json filled with live values, _instructions removed"
+    },
+    {
+      "step": "governed-state-initialized",
+      "completed": true,
+      "note": "users/cici/governed-state/identity/instance.json created as first canonical artifact"
+    },
+    {
+      "step": "surface-map-created",
+      "completed": true,
+      "note": "users/cici/governed-state/surface-map.json created with 7 defined surfaces"
+    },
+    {
+      "step": "validation-passed",
+      "completed": true,
+      "note": "scripts/validate-governed-state.py passed with no errors"
+    },
+    {
+      "step": "committed",
+      "completed": true,
+      "note": "Seed phase committed to main branch"
+    },
+    {
+      "step": "runtime-connected",
+      "completed": true,
+      "note": "Supabase runtime active. OB1 MCP server deployed. Connected to Claude, Cursor."
+    }
+  ],
+  "open_stubs": [
+    "voice",
+    "memory-policy",
+    "workflows",
+    "tools",
+    "source-priority",
+    "runtime-bridges"
+  ],
+  "notes": "Phase 1 seed complete. Identity surface is the only active governed-state surface. Remaining surfaces are stubs awaiting proposals."
+}

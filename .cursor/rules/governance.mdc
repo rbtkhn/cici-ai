@@ -1,0 +1,67 @@
+---
+description: Cici Governance Rules — enforced when working in this repository
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Cici Governance Rules
+
+## Identity
+
+This is `xavier-x01/Cici` — Xavier's personal OB1 instance repository.
+
+- Git-managed files are the canonical source of truth
+- Supabase is the operational runtime bridge (not canonical)
+- All durable truth lives in `users/cici/governed-state/`
+- Material changes require proposals or explicit owner action
+
+## Write Authority
+
+| Who | May write to |
+|---|---|
+| Instance owner (Xavier) | `users/cici/governed-state/`, `config/`, `docs/`, `proposals/approved/`, `proposals/rejected/` |
+| Agents / Claude Code | `proposals/queue/` only |
+| Automations | `prepared-context/`, `evidence/` |
+| Anyone | Session-scoped ephemeral (gitignored) |
+
+**Never write directly to `users/cici/governed-state/` without explicit owner approval (direct edit or approved proposal).**
+
+## Proposal First
+
+When an agent identifies a change that should affect governed state:
+
+1. Write a proposal to `proposals/queue/` following `proposals/schemas/proposal.schema.json`
+2. Do NOT apply the change directly
+3. Let the owner review and approve before the change lands in `governed-state/`
+
+## Governed-State Surfaces
+
+Governed state is split into named surfaces. Target the correct surface in proposals:
+
+| Surface | path | Use for |
+|---|---|---|
+| identity | `governed-state/identity/` | Who Cici is, capabilities, bridges |
+| voice | `governed-state/voice/` | Communication style, tone |
+| memory-policy | `governed-state/memory-policy/` | Capture rules, retention, deduplication |
+| workflows | `governed-state/workflows/` | Recurring operator flows |
+| tools | `governed-state/tools/` | MCP and AI tool configs |
+| source-priority | `governed-state/source-priority/` | Source trust levels, conflict resolution |
+| runtime-bridges | `governed-state/runtime-bridges/` | Supabase bridge policy |
+
+## Never
+
+- Never commit secrets, API keys, or credentials
+- Never write to `users/cici/governed-state/` from automation
+- Never skip the proposal step for material changes
+- Never delete approved proposals — move to `proposals/rejected/` instead
+- Never treat Supabase data as canonical — governed-state files always win
+
+## Validation
+
+Before committing changes to governed paths, run:
+
+```bash
+python3 scripts/validate-governed-state.py
+```
+
+CI runs this check automatically on push/PR.

@@ -1,0 +1,19 @@
+{
+  "id": "prop-20260410-001",
+  "created_at": "2026-04-10T00:00:00Z",
+  "status": "proposed",
+  "change_type": "add",
+  "target_surface": "users/cici/governed-state/metadata-schemas.json",
+  "summary": "Add a BrewMind tag schema to governed state to standardize metadata on captures from BrewMind contexts.",
+  "rationale": "Currently, BrewMind-related captures use ad-hoc metadata keys in the Supabase thoughts table. Encoding a canonical tag schema in governed state allows consistent filtering, better semantic search results, and future automation that can rely on stable field names.",
+  "evidence_refs": [
+    "docs/brewmind.md",
+    "docs/setup-guide.md"
+  ],
+  "proposed_diff_summary": "Create users/cici/governed-state/metadata-schemas.json defining the canonical metadata fields for BrewMind captures: 'source' (required), 'context' (optional), and 'brewmind_topic' (optional, enum of topic categories).",
+  "confidence": 0.85,
+  "proposer": "claude-code",
+  "reviewer": null,
+  "decided_at": null,
+  "decision_notes": null
+}

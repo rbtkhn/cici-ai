@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "description": "Governed-state surface map for the Cici instance. Defines all canonical domains of durable truth and their current status.",
+  "instance_id": "cici",
+  "surfaces": [
+    {
+      "id": "identity",
+      "path": "users/cici/governed-state/identity/",
+      "description": "Who Cici is: instance record, owner, purpose, capabilities, operational bridges, and related projects.",
+      "status": "active",
+      "canonical_files": ["instance.json"]
+    },
+    {
+      "id": "voice",
+      "path": "users/cici/governed-state/voice/",
+      "description": "Communication style, tone preferences, persona notes, and expression conventions for this instance.",
+      "status": "active",
+      "canonical_files": ["session-behavior.json"]
+    },
+    {
+      "id": "memory-policy",
+      "path": "users/cici/governed-state/memory-policy/",
+      "description": "What to capture, what to retain, deduplication rules, archiving thresholds, and hygiene schedules.",
+      "status": "stub"
+    },
+    {
+      "id": "workflows",
+      "path": "users/cici/governed-state/workflows/",
+      "description": "Recurring operator flows: review cadence, capture habits, promotion triggers, and maintenance rituals.",
+      "status": "active",
+      "canonical_files": ["brewmind-companion-contract-ref.json"]
+    },
+    {
+      "id": "tools",
+      "path": "users/cici/governed-state/tools/",
+      "description": "Tool configurations, MCP client settings, AI gateway preferences, and integration policies.",
+      "status": "stub"
+    },
+    {
+      "id": "source-priority",
+      "path": "users/cici/governed-state/source-priority/",
+      "description": "How to weight and trust different information sources: runtime memory, evidence, governed state, external feeds.",
+      "status": "stub"
+    },
+    {
+      "id": "runtime-bridges",
+      "path": "users/cici/governed-state/runtime-bridges/",
+      "description": "Bridge rules and policies for Supabase and any future runtime connections. Operational policy — not identity truth.",
+      "status": "stub"
+    }
+  ],
+  "surface_status_values": {
+    "active": "Surface has canonical governed-state artifacts. Changes require proposals or direct owner edit.",
+    "stub": "Surface directory exists. No governed artifacts yet. Populated through approved proposals.",
+    "deprecated": "Surface is no longer used. Retained for historical reference only."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "description": "Durable session-behavior rules for Cici operator sessions. Promoted from prop-20260413-001.",
+  "approved_at": "2026-04-17T00:00:00Z",
+  "rules": [
+    {
+      "id": "git_context_always_restate",
+      "value": true,
+      "description": "Before any git advice, restate the current branch and remote in one line. Assume Xavier may be learning git workflows.",
+      "source": "CLAUDE.md#session-behavior"
+    },
+    {
+      "id": "disagreement_limit_per_decision",
+      "value": 1,
+      "description": "Raise at most one concise challenge per decision point, then implement Xavier's chosen direction unless blocked by policy or secrets.",
+      "source": "CLAUDE.md#session-behavior"
+    }
+  ]
+}

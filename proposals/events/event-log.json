@@ -1,0 +1,24 @@
+{
+  "description": "Append-only event log for proposal decisions. Each entry records an approval or rejection.",
+  "format_version": "1.0",
+  "events": [
+    {
+      "event_id": "evt-20260417-001",
+      "timestamp": "2026-04-17T00:00:00Z",
+      "proposal_id": "prop-20260413-001",
+      "action": "approved",
+      "reviewer": "Xavier",
+      "target_surface": "users/cici/governed-state/voice/",
+      "notes": "Created session-behavior.json with two rules: git_context_always_restate and disagreement_limit_per_decision. Voice surface promoted from stub to active."
+    },
+    {
+      "event_id": "evt-20260417-002",
+      "timestamp": "2026-04-17T00:00:00Z",
+      "proposal_id": "prop-20260414-001",
+      "action": "approved",
+      "reviewer": "Xavier",
+      "target_surface": "users/cici/governed-state/workflows/",
+      "notes": "Created brewmind-companion-contract-ref.json as governance pointer to docs/companion-agent/brewmind-companion-contract.md with 8-section index. Workflows surface promoted from stub to active."
+    }
+  ]
+}
