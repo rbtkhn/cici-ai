@@ -14,7 +14,8 @@
       "id": "voice",
       "path": "users/cici/governed-state/voice/",
       "description": "Communication style, tone preferences, persona notes, and expression conventions for this instance.",
-      "status": "stub"
+      "status": "active",
+      "canonical_files": ["session-behavior.json"]
     },
     {
       "id": "memory-policy",

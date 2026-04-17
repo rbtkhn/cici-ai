@@ -1,7 +1,7 @@
 {
   "id": "prop-20260413-001",
   "created_at": "2026-04-13T00:00:00Z",
-  "status": "proposed",
+  "status": "approved",
   "change_type": "add",
   "target_surface": "users/cici/governed-state/voice/",
   "summary": "Add initial voice governed state encoding two high-signal session behaviors from Xavier's stated collaboration preferences.",
@@ -13,7 +13,7 @@
   "proposed_diff_summary": "Create users/cici/governed-state/voice/session-behavior.json with two entries: (a) git_context_always_restate: true, (b) disagreement_limit_per_decision: 1. Mark voice surface status as 'active' in surface-map.json once approved.",
   "confidence": 0.88,
   "proposer": "claude-code",
-  "reviewer": null,
-  "decided_at": null,
-  "decision_notes": null
+  "reviewer": "Xavier",
+  "decided_at": "2026-04-17T00:00:00Z",
+  "decision_notes": "Created users/cici/governed-state/voice/session-behavior.json with two rules. Updated surface-map.json voice status from stub to active."
 }
