@@ -1,7 +1,7 @@
 {
   "id": "prop-20260414-001",
   "created_at": "2026-04-14T00:00:00Z",
-  "status": "proposed",
+  "status": "approved",
   "change_type": "add",
   "target_surface": "users/cici/governed-state/workflows/",
   "summary": "Adopt BrewMind companion contract as governed reference for operator sessions working on BrewMind inside the Cici instance.",
@@ -13,7 +13,7 @@
   "proposed_diff_summary": "Create users/cici/governed-state/workflows/brewmind-companion-contract-ref.json: a lightweight governance pointer that names docs/companion-agent/brewmind-companion-contract.md as the canonical behavioral reference for BrewMind operator sessions, records its version, and lists the eight behavioral sections as an index. No changes to other governed surfaces. Update surface-map.json to mark 'workflows' status as 'active' once the first artifact is approved.",
   "confidence": 0.85,
   "proposer": "claude-code",
-  "reviewer": null,
-  "decided_at": null,
-  "decision_notes": null
+  "reviewer": "Xavier",
+  "decided_at": "2026-04-17T00:00:00Z",
+  "decision_notes": "Created users/cici/governed-state/workflows/brewmind-companion-contract-ref.json with 8-section index. Updated surface-map.json workflows status from stub to active."
 }

@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "description": "Governance pointer — BrewMind companion contract as canonical behavioral reference for operator sessions. Promoted from prop-20260414-001.",
+  "approved_at": "2026-04-17T00:00:00Z",
+  "canonical_source": "docs/companion-agent/brewmind-companion-contract.md",
+  "contract_version": "1.0",
+  "scope": "Operator behavior for Claude Code sessions working on BrewMind inside Xavier's Cici instance.",
+  "sections": [
+    { "id": "A", "title": "Calibrated Abstention" },
+    { "id": "B", "title": "Ephemeral vs Canonical — Three Tiers of Memory" },
+    { "id": "C", "title": "Trust Tiers for Evidence" },
+    { "id": "D", "title": "Approval Ceremony — Proposal Echo" },
+    { "id": "E", "title": "Operator Lanes for Claude Code" },
+    { "id": "F", "title": "Humane Purpose" },
+    { "id": "G", "title": "Contradictions — Recording Tension" },
+    { "id": "H", "title": "Session Continuity — Files, Not Chat Memory" }
+  ]
+}
