@@ -21,7 +21,8 @@
       "id": "memory-policy",
       "path": "users/cici/governed-state/memory-policy/",
       "description": "What to capture, what to retain, deduplication rules, archiving thresholds, and hygiene schedules.",
-      "status": "stub"
+      "status": "active",
+      "canonical_files": ["policy.json"]
     },
     {
       "id": "workflows",

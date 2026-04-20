@@ -20,5 +20,15 @@
       "target_surface": "users/cici/governed-state/workflows/",
       "notes": "Created brewmind-companion-contract-ref.json as governance pointer to docs/companion-agent/brewmind-companion-contract.md with 8-section index. Workflows surface promoted from stub to active."
     }
+  ,
+    {
+      "event_id": "evt-20260420-001",
+      "timestamp": "2026-04-20T00:00:00Z",
+      "proposal_id": "prop-20260420-001-activate-memory-policy",
+      "action": "approved",
+      "reviewer": "Xavier",
+      "target_surface": "memory-policy",
+      "notes": "Created policy.json with seven sections: capture_policy, durability_classes (transient/persistent), retention_thresholds, deduplication_rules, hygiene_schedule, tag_taxonomy, source_weighting. memory-policy surface promoted from stub to active."
+    }
   ]
 }

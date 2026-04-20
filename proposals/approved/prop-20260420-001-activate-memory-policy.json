@@ -1,7 +1,7 @@
 {
   "id": "prop-20260420-001-activate-memory-policy",
   "created_at": "2026-04-20T00:00:00Z",
-  "status": "proposed",
+  "status": "approved",
   "change_type": "add",
   "target_surface": "memory-policy",
   "summary": "Activate the memory-policy surface with a canonical artifact defining capture rules, durability classification, retention thresholds, deduplication policy, hygiene schedule, and tag taxonomy.",
@@ -12,5 +12,8 @@
   ],
   "proposed_diff_summary": "Create users/cici/governed-state/memory-policy/policy.json with seven sections: capture_policy, durability_classes (transient: 7-day retention, no synthesis eligibility, auto-archive; persistent: 90-day retention, synthesis-eligible, no auto-archive), retention_thresholds, deduplication_rules, hygiene_schedule, tag_taxonomy, and source_weighting. Each capture is required to declare a durability class at write time. Update surface-map.json to mark memory-policy status as 'active'.",
   "proposer": "claude-code",
-  "confidence": 0.85
+  "confidence": 0.85,
+  "reviewer": "Xavier",
+  "decided_at": "2026-04-20T00:00:00Z",
+  "decision_notes": "Created users/cici/governed-state/memory-policy/policy.json with seven sections: capture_policy, durability_classes, retention_thresholds, deduplication_rules, hygiene_schedule, tag_taxonomy, source_weighting. Updated surface-map.json memory-policy status from stub to active with canonical_files: [policy.json]."
 }

@@ -1,0 +1,115 @@
+{
+  "version": "1.0",
+  "governed_by": "prop-20260420-001-activate-memory-policy",
+  "description": "Canonical memory policy for the Cici instance. Defines what to capture, how long to keep it, when to promote it, and how to deduplicate it.",
+
+  "capture_policy": {
+    "description": "Categories of thought that merit a Supabase write. All other input is ephemeral and should not be captured.",
+    "capture_when": [
+      "Recurring habit or tracking entry (e.g., protein intake, exercise, sleep)",
+      "Active project context: decisions, blockers, open questions",
+      "Personal preference or intention that should persist across sessions",
+      "Insight or reflection explicitly worth retaining",
+      "BrewMind partner or business context verified at Tier A or B"
+    ],
+    "do_not_capture": [
+      "One-off queries or debugging questions with no recurring relevance",
+      "Model-generated summaries not verified by Xavier (Tier C)",
+      "Supabase search results or recent_thoughts cited as fact",
+      "Transient session scaffolding (e.g., planning steps, intermediate notes)"
+    ],
+    "required_fields_at_write": ["content", "durability_class", "tags"]
+  },
+
+  "durability_classes": {
+    "description": "Every capture must declare a durability class at write time. This is the primary signal used by memory-auditor to classify, promote, or expire entries.",
+    "classes": {
+      "transient": {
+        "description": "One-off, session-scoped data. No recurring relevance. Examples: a bug question, a quick lookup, a one-time calculation.",
+        "retention_days": 7,
+        "eligible_for_synthesis": false,
+        "auto_archive": true,
+        "promotion_path": "none — expires automatically"
+      },
+      "persistent": {
+        "description": "Recurring or pattern-based data. Should survive across sessions. Examples: twice-daily protein tracking, active project state, personal preferences.",
+        "retention_days": 90,
+        "eligible_for_synthesis": true,
+        "auto_archive": false,
+        "promotion_path": "evidence/ → prepared-context/synthesis/ → proposal → governed-state"
+      }
+    }
+  },
+
+  "retention_thresholds": {
+    "transient": {
+      "active_days": 7,
+      "action_on_expiry": "archive"
+    },
+    "persistent": {
+      "active_days": 90,
+      "action_on_expiry": "flag_for_review",
+      "review_outcome_options": ["extend", "promote_to_governed_state", "archive"]
+    },
+    "archived": {
+      "retained_days": 365,
+      "action_on_expiry": "delete"
+    }
+  },
+
+  "deduplication_rules": {
+    "merge_when": [
+      "Same topic, same durability_class, captured within 24 hours",
+      "Semantic similarity score >= 0.90 on the same tag set"
+    ],
+    "keep_separate_when": [
+      "Same topic but different durability_class — flag both for manual review",
+      "Similar content but different tags — keep, do not auto-merge"
+    ],
+    "flag_for_review_when": [
+      "Semantic similarity between 0.80 and 0.89",
+      "Two persistent entries contradict each other on the same topic"
+    ]
+  },
+
+  "hygiene_schedule": {
+    "weekly": {
+      "agent": "memory-auditor",
+      "scope": "transient entries past retention threshold",
+      "action": "archive expired transient entries, report count"
+    },
+    "monthly": {
+      "agent": "memory-auditor",
+      "scope": "all entries",
+      "action": "full audit: flag persistent entries approaching expiry, identify synthesis candidates, report Tier C leaks"
+    }
+  },
+
+  "tag_taxonomy": {
+    "description": "Canonical tag vocabulary. evidence-stager and memory-auditor must use only these tags when classifying entries.",
+    "tags": {
+      "#habit": "Recurring personal habit or tracking entry (health, fitness, nutrition)",
+      "#project": "Active project context, decisions, blockers",
+      "#decision": "An explicit decision made by Xavier — not model-suggested",
+      "#insight": "A reflection or realization worth retaining across sessions",
+      "#preference": "A personal preference or working style note",
+      "#brewmind": "Any entry related to the BrewMind project or its partners",
+      "#health": "Health-related data not covered by #habit",
+      "#work": "Professional or technical context unrelated to BrewMind"
+    },
+    "multiple_tags_allowed": true,
+    "unknown_tags": "flag for taxonomy review — do not silently drop"
+  },
+
+  "source_weighting": {
+    "description": "When two sources conflict on the same fact, this hierarchy resolves the conflict. Higher = more authoritative.",
+    "hierarchy": [
+      { "rank": 1, "source": "governed-state", "tier": "A", "notes": "Canonical truth. Always wins." },
+      { "rank": 2, "source": "prepared-context/synthesis", "tier": "B", "notes": "Structured synthesis of evidence. Wins over raw captures." },
+      { "rank": 3, "source": "evidence", "tier": "B", "notes": "Staged raw imports. Wins over runtime." },
+      { "rank": 4, "source": "supabase-runtime", "tier": "C", "notes": "Operational memory. Never overrides governed-state without a proposal." },
+      { "rank": 5, "source": "model-recall", "tier": "C", "notes": "Lowest trust. Must be verified before use." }
+    ],
+    "conflict_action": "annotate with Tension: label, log in brewmind-open-loops.md, surface to Xavier for resolution"
+  }
+}
