@@ -1,0 +1,16 @@
+{
+  "id": "prop-20260420-001-activate-memory-policy",
+  "created_at": "2026-04-20T00:00:00Z",
+  "status": "proposed",
+  "change_type": "add",
+  "target_surface": "memory-policy",
+  "summary": "Activate the memory-policy surface with a canonical artifact defining capture rules, durability classification, retention thresholds, deduplication policy, hygiene schedule, and tag taxonomy.",
+  "rationale": "The memory-policy surface is the only active-use surface still stubbed. Without it, every session must re-derive what to capture and what to discard, and there are no durable rules preventing Tier C (model synthesis / Supabase recall) from silently accumulating as fact. Activating this surface establishes: (1) capture_policy — which categories of thought merit a Supabase write; (2) durability_classes — an explicit transient/persistent classification declared at write time, distinguishing one-off session data (e.g., a bug question) from recurring pattern data (e.g., twice-daily protein tracking); (3) retention_thresholds — per-class thresholds governing how long a memory stays active; (4) deduplication_rules — when to merge vs. keep distinct memories; (5) hygiene_schedule — cadence for pruning low-signal entries; (6) a canonical tag vocabulary referenced by evidence-stager and memory-auditor agents. The durability_classes section in particular elevates memory-auditor from a cleanup tool into a policy-driven classification engine: it can now distinguish memories that should be promoted to synthesis from those that should simply age out, without requiring manual review of every entry.",
+  "evidence_refs": [
+    "users/cici/governed-state/memory-policy/README.md",
+    "docs/companion-agent/brewmind-companion-contract.md#evidence-tiers"
+  ],
+  "proposed_diff_summary": "Create users/cici/governed-state/memory-policy/policy.json with seven sections: capture_policy, durability_classes (transient: 7-day retention, no synthesis eligibility, auto-archive; persistent: 90-day retention, synthesis-eligible, no auto-archive), retention_thresholds, deduplication_rules, hygiene_schedule, tag_taxonomy, and source_weighting. Each capture is required to declare a durability class at write time. Update surface-map.json to mark memory-policy status as 'active'.",
+  "proposer": "claude-code",
+  "confidence": 0.85
+}
