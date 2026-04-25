@@ -6,7 +6,7 @@ This file gives Claude Code context about this repository so it can assist effec
 
 ## What This Repo Is
 
-`xavier_self` is a personal instance of [Open Brain (OB1)](https://github.com/NateBJones-Projects/OB1) — a self-owned AI memory system. It is primarily a **configuration and documentation repository**. The runtime server code is deployed as a Supabase Edge Function and is not stored here.
+`cici-ai` is an instance workspace for [Open Brain (OB1)](https://github.com/NateBJones-Projects/OB1) — a self-owned AI memory system. It is primarily a **configuration and documentation repository**. The runtime server code is deployed as a Supabase Edge Function and is not stored here.
 
 ## Project Purpose
 
@@ -96,8 +96,8 @@ When proposing material changes to governed state, create a JSON file in `propos
 
 ## Session Behavior
 
-- **Git / fork context:** Assume Xavier may be learning git workflows. Before any git advice, restate the current branch and remote in one line (e.g. "You're on `main`, tracking `origin/main`"). Link to `docs/personal/intentions-and-preferences.md` for fuller context on collaboration style.
-- **Disagreement:** Raise at most one concise challenge per decision point, then implement Xavier's chosen direction unless the action is blocked by a policy constraint or would expose secrets.
+- **Git / fork context:** Assume the operator may be learning git workflows. Before any git advice, restate the current branch and remote in one line (e.g. "You're on `main`, tracking `origin/main`"). Link to `docs/personal/intentions-and-preferences.md` for fuller context on collaboration style.
+- **Disagreement:** Raise at most one concise challenge per decision point, then implement the operator's chosen direction unless the action is blocked by a policy constraint or would expose secrets.
 - **Plan-mode-first:** Begin complex or ambiguous tasks in Plan mode (shift+tab twice in the CLI, or state the plan before acting). Switch to edits only once the approach is confirmed. This enforces the PLAN lane default.
 
 ## Available Slash Commands
@@ -108,7 +108,7 @@ These commands live in `.claude/commands/` and can be invoked with `/`:
 |---|---|
 | `/session-start` | Run the startup ceremony: reads open proposals, open loops, surfaces status paragraph |
 | `/draft-proposal <surface>` | Scaffold a new proposal for a governed-state surface |
-| `/review-governed-change <proposal-id>` | Evaluate a queued proposal and wait for Xavier's decision |
+| `/review-governed-change <proposal-id>` | Evaluate a queued proposal and wait for owner decision |
 | `/promote-to-governed-state <proposal-id>` | Apply an approved proposal to the correct surface |
 | `/stage-evidence [tag]` | Stage Supabase export into evidence/ and prepared-context/ |
 | `/memory-audit` | Run a full pipeline and Tier C leak audit |
@@ -139,21 +139,21 @@ _Routines inspired by [career-ops](https://github.com/santifer/career-ops) layou
 
 ## Common Errors (Do Not Repeat)
 
-_This section is a living log. Add entries when Claude makes a mistake Xavier should not see again._
+_This section is a living log. Add entries when Claude makes a mistake the owner should not see again._
 
 - **Do not cite Supabase recall as fact.** MCP search results and `recent_thoughts` are Tier C. Always annotate and offer a verification step.
-- **Do not write to governed-state surfaces without a proposal.** Even obvious improvements need the proposal → approval flow unless Xavier explicitly says "direct edit is fine."
-- **Do not generate pricing, partner commitment, or launch date language** without an explicit Tier A or B source and Xavier's go-ahead.
+- **Do not write to governed-state surfaces without a proposal.** Even obvious improvements need the proposal → approval flow unless the owner explicitly says "direct edit is fine."
+- **Do not generate pricing, partner commitment, or launch date language** without an explicit Tier A or B source and owner approval.
 
 ## BrewMind companion defaults
 
 Full contract: [`docs/companion-agent/brewmind-companion-contract.md`](docs/companion-agent/brewmind-companion-contract.md)
 
 - **Startup reads (every session):** `CLAUDE.md` → `proposals/queue/*.json` → `docs/companion-agent/brewmind-open-loops.md`. Surface a one-paragraph status before acting.
-- **Default lane: PLAN.** Read and propose freely. Only write to governed state or commit/push when Xavier explicitly says so (EXECUTE lane). Docs-only changes use DOCSYNC.
+- **Default lane: PLAN.** Read and propose freely. Only write to governed state or commit/push when the owner explicitly says so (EXECUTE lane). Docs-only changes use DOCSYNC.
 - **No retrieval-as-truth.** MCP search results (`search`, `recent_thoughts`) and Supabase captures are **Tier C** inputs — useful context, not business facts. Never cite them as confirmed decisions without a Tier A or B source.
-- **Three evidence tiers:** `[A]` = Xavier verified / primary source. `[B]` = structured summary of A or third-party doc with traceable source. `[C]` = model synthesis, brainstorm, unverified recall. Tier C never becomes a public promise or pricing claim without promotion to A or B.
+- **Three evidence tiers:** `[A]` = owner-verified primary source. `[B]` = structured summary of A or third-party doc with traceable source. `[C]` = model synthesis, brainstorm, unverified recall. Tier C never becomes a public promise or pricing claim without promotion to A or B.
 - **Abstain when unverified.** If a BrewMind fact (partner status, pricing, launch date) cannot be traced to a governed doc or working file, say "not in governed docs / not verified" and offer a named next step.
-- **Proposal echo before governed-state changes.** Cite a proposal id (or create `proposals/queue/prop-YYYYMMDD-NNN-*.json`), give a one-line summary of what changes on which surface, then stop and wait for Xavier's decision.
+- **Proposal echo before governed-state changes.** Cite a proposal id (or create `proposals/queue/prop-YYYYMMDD-NNN-*.json`), give a one-line summary of what changes on which surface, then stop and wait for owner decision.
 - **Record tensions, never silently resolve them.** If two sources disagree, name both, add a `Tension:` annotation, and suggest a resolution path. Log in `docs/companion-agent/brewmind-open-loops.md`.
-- **Relationship-first.** BrewMind involves real partners and community. Before drafting anything involving other people, ask: would this feel respectful if Xavier read it aloud to a partner?
+- **Relationship-first.** BrewMind involves real partners and community. Before drafting anything involving other people, ask: would this feel respectful if the owner read it aloud to a partner?

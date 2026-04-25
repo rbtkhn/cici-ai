@@ -1,8 +1,8 @@
-# Cici — Xavier's Personal Open Brain Instance
+# cici-ai — Open Brain Instance Workspace
 
-> **This is Xavier's personal instance layer.** For the fork of the server code see [Xavier-x01/open-brain-xavier](https://github.com/Xavier-x01/open-brain-xavier). Upstream project: [NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1). Business brand: [BrewMind](https://brewmind.cafe).
+This repository is the active instance workspace for `cici-ai`, based on [Open Brain (OB1)](https://github.com/NateBJones-Projects/OB1). It contains configuration and documentation only (no runtime server code, no committed secrets). Related business context may reference [BrewMind](https://brewmind.cafe).
 
-This repo holds **configuration and documentation only** — no secrets, no server code. All AI memory captured through this instance (including BrewMind business context, notes, and learnings) lives in Xavier's private Supabase project. See [`docs/personal/README.md`](docs/personal/README.md) for goals and workflow notes.
+**Legacy note: formerly Xavier.** Historical artifacts may include prior naming, repository handles, or branch conventions from earlier phases.
 
 ---
 
@@ -118,7 +118,7 @@ Cici/
 ├── prepared-context/               # Normalized staged context (Phase 1: placeholder)
 ├── users/
 │   ├── _template/                  # Template for new instances
-│   └── cici/                       # Xavier's instance governed state
+│   └── cici/                       # Active instance governed state
 │       ├── seed_intent.json
 │       └── governed-state/
 ├── proposals/                      # Proposal review queue + schema
@@ -136,7 +136,7 @@ Cici/
 │   ├── seed-phase.md               # Instance initialization walkthrough
 │   ├── migration-compatibility.md  # Phase 1 compatibility notes
 │   ├── brewmind.md                 # BrewMind integration
-│   └── personal/README.md          # Xavier's personal workflow
+│   └── personal/README.md          # Instance operator workflow notes
 └── scripts/
     └── validate-governed-state.py  # CI validation for governed-state artifacts
 ```
@@ -152,3 +152,15 @@ The actual server code lives upstream at [NateBJones-Projects/OB1](https://githu
 - Governed state doctrine: [docs/governed-state-doctrine.md](docs/governed-state-doctrine.md)
 - Supabase dashboard: https://supabase.com/dashboard
 - OpenRouter: https://openrouter.ai
+
+---
+
+## Legacy-reference policy check
+
+Legacy mentions are allowed only in:
+- migration/continuity notes
+- explicit legacy alias tables
+- revision/history logs
+- immutable evidence/proposal records
+
+Active onboarding and operating instructions should remain Cici-first.

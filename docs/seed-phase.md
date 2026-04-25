@@ -72,6 +72,6 @@ Follow `docs/setup-guide.md` to configure Supabase and deploy the MCP server.
 
 ## Existing instances
 
-This repo's active instance is `users/cici/` — Xavier's personal instance. It was initialized as part of Phase 1 (2026-04-10).
+This repo's active instance is `users/cici/` — the current cici-ai instance. **Legacy note: formerly Xavier.** It was initialized as part of Phase 1 (2026-04-10).
 
 New forks of this repo should create their own instance directory rather than modifying `users/cici/`.
