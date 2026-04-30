@@ -1,8 +1,8 @@
 {
   "instance_id": "cici",
   "instance_display_name": "Cici",
-  "owner": "Xavier",
-  "purpose": "Xavier's personal AI memory system — a persistent, cross-AI knowledge base for BrewMind strategy, personal thinking, and long-term knowledge accumulation.",
+  "owner": "cici-ai owner/operator",
+  "purpose": "Active Cici AI memory workspace - a persistent, cross-AI knowledge base for BrewMind strategy, operator thinking, and long-term knowledge accumulation.",
   "established_at": "2026-04-10T00:00:00Z",
   "governed_state_version": "1.0",
   "capabilities": [
@@ -22,8 +22,8 @@
   "related_projects": [
     {
       "name": "BrewMind",
-      "repo": "xavier-x01/brew_mind",
-      "relationship": "public-facing brand; insights captured into Cici via MCP"
+      "site": "https://brewmind.cafe",
+      "relationship": "related business context; insights may be captured into Cici via MCP"
     },
     {
       "name": "Open Brain (OB1)",
@@ -31,9 +31,9 @@
       "relationship": "upstream server runtime; Cici deploys from this"
     },
     {
-      "name": "open-brain-xavier",
-      "repo": "xavier-x01/open-brain-xavier",
-      "relationship": "personal fork of OB1 for experimental changes"
+      "name": "cici-ai",
+      "repo": "rbtkhn/cici-ai",
+      "relationship": "active instance workspace for docs, governance, and governed-state scaffolds"
     }
   ]
 }

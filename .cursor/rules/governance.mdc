@@ -1,5 +1,5 @@
 ---
-description: Cici Governance Rules — enforced when working in this repository
+description: Cici Governance Rules - enforced when working in this repository
 globs: ["**/*"]
 alwaysApply: true
 ---
@@ -8,7 +8,7 @@ alwaysApply: true
 
 ## Identity
 
-This is `xavier-x01/Cici` — Xavier's personal OB1 instance repository.
+This is `rbtkhn/cici-ai` - the active Cici workspace for docs, governance, and governed-state scaffolds.
 
 - Git-managed files are the canonical source of truth
 - Supabase is the operational runtime bridge (not canonical)
@@ -19,7 +19,7 @@ This is `xavier-x01/Cici` — Xavier's personal OB1 instance repository.
 
 | Who | May write to |
 |---|---|
-| Instance owner (Xavier) | `users/cici/governed-state/`, `config/`, `docs/`, `proposals/approved/`, `proposals/rejected/` |
+| Instance owner/operator | `users/cici/governed-state/`, `config/`, `docs/`, `proposals/approved/`, `proposals/rejected/` |
 | Agents / Claude Code | `proposals/queue/` only |
 | Automations | `prepared-context/`, `evidence/` |
 | Anyone | Session-scoped ephemeral (gitignored) |
@@ -53,8 +53,8 @@ Governed state is split into named surfaces. Target the correct surface in propo
 - Never commit secrets, API keys, or credentials
 - Never write to `users/cici/governed-state/` from automation
 - Never skip the proposal step for material changes
-- Never delete approved proposals — move to `proposals/rejected/` instead
-- Never treat Supabase data as canonical — governed-state files always win
+- Never delete approved proposals - move to `proposals/rejected/` instead
+- Never treat Supabase data as canonical - governed-state files always win
 
 ## Validation
 

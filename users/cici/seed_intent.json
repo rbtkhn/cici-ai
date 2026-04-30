@@ -1,9 +1,9 @@
 {
   "instance_id": "cici",
   "instance_display_name": "Cici",
-  "owner": "Xavier",
+  "owner": "cici-ai owner/operator",
   "created_at": "2026-04-10T00:00:00Z",
-  "purpose": "Xavier's personal AI memory system — a persistent, cross-AI knowledge base for BrewMind strategy, personal thinking, and long-term knowledge accumulation.",
+  "purpose": "Active Cici AI memory workspace - a persistent, cross-AI knowledge base for BrewMind strategy, operator thinking, and long-term knowledge accumulation.",
   "seed_phase_status": "active",
   "capabilities": [
     "mcp-memory-capture",

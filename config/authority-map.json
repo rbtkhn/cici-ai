@@ -3,8 +3,8 @@
   "description": "Authority map for Cici governed-state writes. Defines who may write what, through which mechanism.",
   "write_classes": {
     "canonical": {
-      "description": "Human-controlled governed state writes. Authoritative. Requires explicit owner action — direct edit or approved proposal.",
-      "who": "instance owner (Xavier)",
+      "description": "Human-controlled governed state writes. Authoritative. Requires explicit owner/operator action - direct edit or approved proposal.",
+      "who": "instance owner/operator",
       "how": "direct file edit, or proposal approved via proposals/queue/ review",
       "surfaces": [
         "users/cici/governed-state/identity/",
@@ -29,7 +29,7 @@
       ]
     },
     "staging": {
-      "description": "Writes to the staging layer (evidence and prepared-context). These are operational but Git-tracked. Not canonical truth — may be revised, archived, or deleted without formal proposals.",
+      "description": "Writes to the staging layer (evidence and prepared-context). These are operational but Git-tracked. Not canonical truth - may be revised, archived, or deleted without formal proposals.",
       "who": "agents, automations, extraction scripts, operator",
       "how": "direct write to evidence/ or prepared-context/ subdirectories",
       "surfaces": [
@@ -41,11 +41,11 @@
       ]
     },
     "operational": {
-      "description": "Operational, cache, index, and sync writes. Support runtime functionality. Not canonical truth — may be reconstructed or overwritten.",
+      "description": "Operational, cache, index, and sync writes. Support runtime functionality. Not canonical truth - may be reconstructed or overwritten.",
       "who": "Supabase Edge Functions, MCP server, sync scripts",
       "how": "direct write to operational layer (Supabase database, function runtime)",
       "surfaces": [
-        "supabase (external — not in git)"
+        "supabase (external - not in git)"
       ]
     },
     "ephemeral": {

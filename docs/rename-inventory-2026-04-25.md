@@ -21,3 +21,16 @@ Canonical legacy fence phrase: **Legacy note: formerly Xavier.**
 - Dedicated alias/migration sections
 - Revision/history blocks
 - Immutable evidence/proposal records
+
+## 2026-04-30 active-state pass
+
+The active authority layer has been migrated to Cici-first owner/operator wording in:
+
+- `users/cici/governed-state/identity/instance.json`
+- `users/cici/seed_intent.json`
+- `config/authority-map.json`
+- `docs/session-bootstrap-prompt.md`
+- `.cursor/rules/governance.mdc`
+- `.claude/modes/_shared.md`
+
+Remaining `Xavier` references inside approved proposals, proposal event logs, examples, and historical rename notes are provenance unless a later audit classifies a specific file as current-state text.
